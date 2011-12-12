@@ -41,6 +41,10 @@ class BlogPost < ActiveRecord::Base
   scope :previous, lambda { |i| where(["published_at < ? and draft = ?", i.published_at, false]).limit(1) }
   # next is now in << self
 
+  def self.per_page
+    10
+  end
+
   def next
     BlogPost.next(self).first
   end

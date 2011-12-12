@@ -54,18 +54,12 @@ module Blog
         date = "#{params[:month]}/#{params[:year]}"
         @archive_date = Time.parse(date)
         @date_title = @archive_date.strftime('%B %Y')
-        @blog_posts = BlogPost.live.by_archive(@archive_date).paginate({
-          :page => params[:page],
-          :per_page => RefinerySetting.find_or_set(:blog_posts_per_page, 10)
-        })
+        @blog_posts = BlogPost.live.by_archive(@archive_date).page(params[:page]).per(RefinerySetting.find_or_set(:blog_posts_per_page, 10))
       else
         date = "01/#{params[:year]}"
         @archive_date = Time.parse(date)
         @date_title = @archive_date.strftime('%Y')
-        @blog_posts = BlogPost.live.by_year(@archive_date).paginate({
-          :page => params[:page],
-          :per_page => RefinerySetting.find_or_set(:blog_posts_per_page, 10)
-        })
+        @blog_posts = BlogPost.live.by_year(@archive_date).page(params[:page]).per(RefinerySetting.find_or_set(:blog_posts_per_page, 10))
       end
       respond_with (@blog_posts)
     end
@@ -73,10 +67,7 @@ module Blog
     def tagged
       @tag = ActsAsTaggableOn::Tag.find(params[:tag_id])
       @tag_name = @tag.name
-      @blog_posts = BlogPost.tagged_with(@tag_name).paginate({
-        :page => params[:page],
-        :per_page => RefinerySetting.find_or_set(:blog_posts_per_page, 10)
-      })
+      @blog_posts = BlogPost.tagged_with(@tag_name).page(params[:page]).per(RefinerySetting.find_or_set(:blog_posts_per_page, 10))
     end
 
   protected
@@ -92,10 +83,7 @@ module Blog
     end
 
     def find_all_blog_posts
-      @blog_posts = BlogPost.live.includes(:comments, :categories).paginate({
-        :page => params[:page],
-        :per_page => RefinerySetting.find_or_set(:blog_posts_per_page, 10)
-      })
+      @blog_posts = BlogPost.live.includes(:comments, :categories).page(params[:page]).per(RefinerySetting.find_or_set(:blog_posts_per_page, 10))
     end
 
     def find_tags
