@@ -21,6 +21,15 @@ module Refinery
       scope :approved, :conditions => {:state => 'approved'}
       scope :rejected, :conditions => {:state => 'rejected'}
 
+      def self.per_page= num
+        @per_page = num
+      end
+
+      def self.per_page 
+        @per_page || 10
+      end
+
+
       self.per_page = Refinery::Setting.find_or_set(:blog_comments_per_page, 10)
 
       def avatar_url(options = {})

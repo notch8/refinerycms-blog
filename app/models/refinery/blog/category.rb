@@ -18,6 +18,15 @@ module Refinery
         posts.select(&:live?).count
       end
 
+      def self.per_page= num
+        @per_page = num
+      end
+
+      def self.per_page 
+        @per_page || 10
+      end
+
+
       # how many items to show per page
       self.per_page = Refinery::Setting.find_or_set(:blog_posts_per_page, 10)
 

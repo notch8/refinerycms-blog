@@ -49,6 +49,15 @@ module Refinery
       attr_accessible :title, :body, :custom_teaser, :tag_list, :draft, :published_at, :custom_url
       attr_accessible :browser_title, :meta_keywords, :meta_description, :user_id, :category_ids
 
+
+      def self.per_page= num
+        @per_page = num
+      end
+
+      def self.per_page 
+        @per_page || 10
+      end
+
       self.per_page = Refinery::Setting.find_or_set(:blog_posts_per_page, 10)
 
       def next
