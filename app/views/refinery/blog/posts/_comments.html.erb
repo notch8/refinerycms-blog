@@ -8,12 +8,6 @@
     </p>
   <% end %>
 
-  <% flash.each do |key, value| %>
-    <div id='flash' class="flash flash_<%= key %>">
-      <%= value %>
-    </div>
-  <% end %>
-
   <h2><%= t('add', :scope => 'refinery.blog.posts.show.comments') %></h2>
   <%= form_for [main_app, :blog_post, @blog_comment] do |f| %>
     <%= render :partial => "/refinery/admin/error_messages",
