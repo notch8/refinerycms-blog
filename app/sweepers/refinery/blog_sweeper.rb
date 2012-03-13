@@ -18,7 +18,6 @@ module Refinery
 
       def expire_cache_for(record)
         # TODO: Convert these to url helpers
-        #expire_action :controller => 'Refinery::Blog::Posts', :action => "index"
         expire_page '/blog'
         expire_page '/blog/feed.rss'
       end
